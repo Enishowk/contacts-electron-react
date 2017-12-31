@@ -1,0 +1,50 @@
+{
+  "name": "contacts-electron-react",
+  "description": "Use Api Contact with Desktop application",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "git@github.com:Enishowk/contacts-electron-react.git",
+  "author": "Enishowk",
+  "license": "MIT",
+  "scripts": {
+    "start": "cross-env NODE_ENV=test electron .",
+    "production": "rollup -c && electron .",
+    "lint": "eslint src/*.js",
+    "compile": "rollup -c",
+    "pack:win": "electron-builder --dir --win",
+    "pack:mac": "electron-builder --x64 --mac",
+    "pack:linux": "electron-builder --linux",
+    "pack:all": "electron-builder -mwl",
+    "gh-publish": "electron-builder --x64 --mac -p always"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-preset-env": "^1.5.1",
+    "babel-preset-react": "^6.23.0",
+    "babel-register": "^6.24.1",
+    "electron": "^1.7.10",
+    "electron-builder": "^19.26.3",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-prettier": "^1.5.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-prettier": "^2.0.1",
+    "eslint-plugin-react": "^6.10.3",
+    "prettier": "^0.22.0",
+    "rollup": "^0.45.2",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-uglify": "^2.0.1",
+    "spectron": "^3.7.2",
+    "uglify-es": "^3.0.27"
+  },
+  "dependencies": {
+    "axios": "^0.16.1",
+    "bulma": "^0.4.0",
+    "cross-env": "^5.1.3",
+    "font-awesome": "^4.7.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-router-dom": "^4.0.0"
+  }
+}
