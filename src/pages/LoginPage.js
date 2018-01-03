@@ -54,6 +54,7 @@ export default class LoginPage extends React.Component {
   }
 
   render() {
+    const { login, pass } = this.state;
     return (
       <div>
         Login
@@ -63,7 +64,7 @@ export default class LoginPage extends React.Component {
             <input
               name="login"
               type="text"
-              value={this.state.login}
+              value={login}
               onChange={this.handleInputChange}
             />
           </label>
@@ -72,7 +73,7 @@ export default class LoginPage extends React.Component {
             <input
               name="pass"
               type="password"
-              value={this.state.pass}
+              value={pass}
               onChange={this.handleInputChange}
             />
           </label>
@@ -92,5 +93,5 @@ export default class LoginPage extends React.Component {
 }
 
 LoginPage.propTypes = {
-  history: PropTypes.objectOf([PropTypes.function]).isRequired
+  history: PropTypes.object.isRequired
 };
