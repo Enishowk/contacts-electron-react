@@ -41,12 +41,8 @@ export default class LoginPage extends React.Component {
           pathname: `/contacts`,
           state: {}
         };
-        setTimeout(
-          () => {
-            this.props.history.push(location);
-          },
-          1500
-        );
+
+        this.props.history.push(location);
       })
       .catch(error => {
         console.log(error);
