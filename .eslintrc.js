@@ -41,5 +41,6 @@ module.exports = {
     "no-trailing-spaces": ["error", { skipBlankLines: false }],
     "no-underscore-dangle": "off",
     "react/jsx-uses-vars": [2],
-  }
+  },
+  parser: "babel-eslint",
 };
