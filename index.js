@@ -29,6 +29,7 @@ function createWindow() {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+  mainWindow.setMenu(null);
 
   // Emitted when the window is closed.
   mainWindow.on("closed", () => {
@@ -37,7 +38,6 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
-
 }
 
 // This method will be called when Electron has finished
@@ -54,7 +54,7 @@ app.on("window-all-closed", () => {
   }
 });
 
-app.on("activate", () =>  {
+app.on("activate", () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {

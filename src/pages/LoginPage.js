@@ -1,14 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
+import RaisedButton from "material-ui/RaisedButton";
+import TextField from "material-ui/TextField";
 import { Link } from "react-router-dom";
-import Axios from "axios";
+import ContactsServices from "../services/ContactsServices";
 
 export default class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      login: "",
-      pass: ""
+      username: "",
+      password: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,10 +31,7 @@ export default class LoginPage extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    Axios.post("http://localhost:8000/login", {
-      username: this.state.login,
-      password: this.state.pass
-    })
+    ContactsServices.login(this.state.username, this.state.password)
       .then(response => {
         const token = response.data.token;
         localStorage.setItem("token", token);
@@ -50,36 +49,39 @@ export default class LoginPage extends React.Component {
   }
 
   render() {
-    const { login, pass } = this.state;
+    const { username, password } = this.state;
     return (
       <div>
-        Login
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Login:
-            <input
-              name="login"
-              type="text"
-              value={login}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label>
-            Pass:
-            <input
-              name="pass"
-              type="password"
-              value={pass}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <input type="submit" value="Submit" />
+        <form
+          onSubmit={this.handleSubmit}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+        >
+          <TextField
+            placeholder="Username"
+            name="username"
+            type="text"
+            value={username}
+            onChange={this.handleInputChange}
+          />
+          <br />
+          <br />
+          <TextField
+            placeholder="Password"
+            name="password"
+            type="password"
+            value={password}
+            onChange={this.handleInputChange}
+          />
+          <br />
+          <br />
+          <RaisedButton type="submit" label="primary" primary />
         </form>
         <div className="nav-item">
-          <Link to="/contacts" className="button">
-            <span className="icon">
-              <i className="fa fa-address-book " />
-            </span>
+          <Link to="/contacts">
             <span>Mes contacts</span>
           </Link>
         </div>
