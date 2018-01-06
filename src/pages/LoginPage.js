@@ -78,7 +78,7 @@ export default class LoginPage extends React.Component {
           />
           <br />
           <br />
-          <RaisedButton type="submit" label="primary" primary />
+          <RaisedButton type="submit" label="Connexion" primary />
         </form>
         <div className="nav-item">
           <Link to="/contacts">
