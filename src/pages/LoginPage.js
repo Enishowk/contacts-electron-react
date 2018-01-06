@@ -52,35 +52,51 @@ export default class LoginPage extends React.Component {
     const { username, password } = this.state;
     return (
       <div>
-        <form
-          onSubmit={this.handleSubmit}
+        <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center"
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)"
           }}
         >
-          <TextField
-            placeholder="Username"
-            name="username"
-            type="text"
-            value={username}
-            onChange={this.handleInputChange}
-          />
-          <br />
-          <br />
-          <TextField
-            placeholder="Password"
-            name="password"
-            type="password"
-            value={password}
-            onChange={this.handleInputChange}
-          />
-          <br />
-          <br />
-          <RaisedButton type="submit" label="Connexion" primary />
-        </form>
-        <div className="nav-item">
+          <form
+            onSubmit={this.handleSubmit}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}
+          >
+            <TextField
+              placeholder="Username"
+              name="username"
+              type="text"
+              value={username}
+              onChange={this.handleInputChange}
+            />
+            <br />
+            <TextField
+              placeholder="Password"
+              name="password"
+              type="password"
+              value={password}
+              onChange={this.handleInputChange}
+            />
+            <br />
+            <br />
+            <RaisedButton type="submit" label="Connexion" primary />
+          </form>
+        </div>
+        <div
+          style={{
+            height: 30,
+            width: "100%",
+            position: "fixed",
+            textAlign: "center",
+            bottom: 0
+          }}
+        >
           <Link to="/contacts">
             <span>Mes contacts</span>
           </Link>
