@@ -10,8 +10,8 @@ export default class ModalCreateContact extends React.Component {
     super(props);
     this.state = {
       open: false,
-      nom: "",
-      prenom: ""
+      lastName: "",
+      firstName: ""
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -41,8 +41,8 @@ export default class ModalCreateContact extends React.Component {
   }
 
   handleSubmit() {
-    const { nom, prenom } = this.state;
-    ContactServices.postContact({ lastName: nom, firstName: prenom })
+    const { lastName, firstName } = this.state;
+    ContactServices.postContact({ lastName, firstName })
       .then(this.handleClose())
       .catch(err => console.log(err));
   }
@@ -53,7 +53,7 @@ export default class ModalCreateContact extends React.Component {
       <FlatButton label="Submit" primary onClick={() => this.handleSubmit()} />
     ];
 
-    const { nom, prenom } = this.state;
+    const { lastName, firstName } = this.state;
 
     return (
       <div>
@@ -66,18 +66,18 @@ export default class ModalCreateContact extends React.Component {
         >
           <TextField
             placeholder="Nom"
-            name="nom"
+            name="lastName"
             type="text"
-            value={nom}
+            value={lastName}
             onChange={this.handleInputChange}
           />
           <br />
           <br />
           <TextField
             placeholder="Prenom"
-            name="prenom"
+            name="firstName"
             type="text"
-            value={prenom}
+            value={firstName}
             onChange={this.handleInputChange}
           />
         </Dialog>
