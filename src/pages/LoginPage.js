@@ -107,5 +107,17 @@ export default class LoginPage extends React.Component {
 }
 
 LoginPage.propTypes = {
-  history: PropTypes.object.isRequired
+  history: PropTypes.shape({
+    length: PropTypes.number,
+    action: PropTypes.string,
+    block: PropTypes.func,
+    createHref: PropTypes.func,
+    go: PropTypes.func,
+    goBack: PropTypes.func,
+    goForward: PropTypes.func,
+    listen: PropTypes.func,
+    location: PropTypes.object,
+    push: PropTypes.func,
+    replace: PropTypes.func
+  }).isRequired
 };

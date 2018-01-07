@@ -41,5 +41,5 @@ const ContactsList = ({ contacts }) => (
 export default ContactsList;
 
 ContactsList.propTypes = {
-  contacts: PropTypes.array.isRequired
+  contacts: PropTypes.arrayOf(PropTypes.object).isRequired
 };
