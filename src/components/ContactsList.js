@@ -27,7 +27,11 @@ const ContactsList = ({ contacts }) => (
             {contact.firstName} {contact.lastName}
           </TableRowColumn>
           <TableRowColumn>{contact.company}</TableRowColumn>
-          {/* <TableRowColumn>{contact.phones[0].number}</TableRowColumn> */}
+          {
+            <TableRowColumn>
+              {contact.phones[0] ? contact.phones[0].number : null}
+            </TableRowColumn>
+          }
         </TableRow>
       ))}
     </TableBody>
