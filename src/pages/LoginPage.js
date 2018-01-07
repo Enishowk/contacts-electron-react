@@ -44,7 +44,7 @@ export default class LoginPage extends React.Component {
         this.props.history.push(location);
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
   }
 
