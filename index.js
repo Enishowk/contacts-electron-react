@@ -1,3 +1,4 @@
+require("electron-reload")(__dirname);
 const url = require("url");
 const path = require("path");
 const electron = require("electron");
