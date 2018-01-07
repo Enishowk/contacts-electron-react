@@ -15,7 +15,8 @@ function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1400,
-    height: 600
+    height: 600,
+    icon: path.join(__dirname, "src/contact.ico")
   });
 
   // and load the index.html of the app.
