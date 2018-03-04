@@ -29,7 +29,7 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-config-prettier": "^1.5.0",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^6.10.3",
@@ -44,7 +44,7 @@
     "axios": "^0.16.1",
     "cross-env": "^5.1.3",
     "material-ui": "^0.20.0",
-    "prop-types": "^15.6.0",
+    "prop-types": "^15.6.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router-dom": "^4.0.0"
