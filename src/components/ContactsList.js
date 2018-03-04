@@ -8,18 +8,21 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
+import IconButton from "material-ui/IconButton";
+import DeleteIcon from "material-ui/svg-icons/action/delete";
 
-const ContactsList = ({ contacts }) => (
-  <Table>
-    <TableHeader>
+const ContactsList = ({ contacts, showModal }) => (
+  <Table selectable={false} multiSelectable={false}>
+    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
       <TableRow>
         <TableHeaderColumn>ID</TableHeaderColumn>
         <TableHeaderColumn>Nom</TableHeaderColumn>
         <TableHeaderColumn>Entreprise</TableHeaderColumn>
         <TableHeaderColumn>Téléphone</TableHeaderColumn>
+        <TableHeaderColumn>Actions</TableHeaderColumn>
       </TableRow>
     </TableHeader>
-    <TableBody>
+    <TableBody displayRowCheckbox={false} showRowHover={false} stripedRows>
       {contacts.map(contact => (
         <TableRow key={contact.id}>
           <TableRowColumn>{contact.id}</TableRowColumn>
@@ -32,6 +35,11 @@ const ContactsList = ({ contacts }) => (
               {contact.phones[0] ? contact.phones[0].number : null}
             </TableRowColumn>
           }
+          <TableRowColumn>
+            <IconButton>
+              <DeleteIcon onClick={() => showModal(contact)} />
+            </IconButton>
+          </TableRowColumn>
         </TableRow>
       ))}
     </TableBody>
@@ -41,5 +49,6 @@ const ContactsList = ({ contacts }) => (
 export default ContactsList;
 
 ContactsList.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.object).isRequired
+  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  showModal: PropTypes.func.isRequired
 };

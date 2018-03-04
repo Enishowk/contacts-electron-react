@@ -37,14 +37,18 @@ export default class ModalCreateContact extends React.Component {
   }
 
   handleClose() {
+    const { closeModal } = this.props;
     this.setState({ open: false });
+    closeModal();
   }
 
   handleSubmit() {
     const { lastName, firstName } = this.state;
-    ContactServices.postContact({ lastName, firstName })
-      .then(this.handleClose())
-      .catch(err => console.log(err));
+    const { getContacts } = this.props;
+    ContactServices.postContact({ lastName, firstName }).then(
+      this.handleClose(),
+      getContacts()
+    );
   }
 
   render() {
@@ -87,7 +91,9 @@ export default class ModalCreateContact extends React.Component {
 }
 
 ModalCreateContact.propTypes = {
-  openModal: PropTypes.bool
+  closeModal: PropTypes.func.isRequired,
+  getContacts: PropTypes.func.isRequired,
+  openModal: PropTypes.bool // eslint-disable-line
 };
 
 ModalCreateContact.defaultProps = {

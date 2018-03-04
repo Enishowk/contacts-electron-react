@@ -22,6 +22,13 @@ class ContactsServices {
     };
     return axios.post(`${CONTACTS_BASE_PATH}/contacts`, contact, CONFIG);
   }
+
+  static deleteContact(contact) {
+    const CONFIG = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    };
+    return axios.delete(`${CONTACTS_BASE_PATH}/contacts/${contact.id}`, CONFIG);
+  }
 }
 
 export default ContactsServices;
