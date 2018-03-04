@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const CONTACTS_BASE_PATH = "http://localhost:8000";
-
 class ContactsServices {
   static login(username, password) {
     return axios.post(`${CONTACTS_BASE_PATH}/login`, {
@@ -11,11 +10,24 @@ class ContactsServices {
   }
 
   static getContacts() {
-    const config = {
+    const CONFIG = {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     };
+    return axios.get(`${CONTACTS_BASE_PATH}/contacts`, CONFIG);
+  }
 
-    return axios.get(`${CONTACTS_BASE_PATH}/contacts`, config);
+  static postContact(contact) {
+    const CONFIG = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    };
+    return axios.post(`${CONTACTS_BASE_PATH}/contacts`, contact, CONFIG);
+  }
+
+  static deleteContact(contact) {
+    const CONFIG = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    };
+    return axios.delete(`${CONTACTS_BASE_PATH}/contacts/${contact.id}`, CONFIG);
   }
 }
 
