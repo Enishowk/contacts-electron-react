@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Dialog from "material-ui/Dialog";
-import FlatButton from "material-ui/FlatButton";
+import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import ContactServices from "../services/ContactsServices";
 
@@ -10,8 +10,11 @@ export default class ModalCreateContact extends React.Component {
     super(props);
     this.state = {
       open: false,
+      entreprise: "",
+      firstName: "",
       lastName: "",
-      firstName: ""
+      phone1Number: "",
+      phone1Type: ""
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -43,46 +46,99 @@ export default class ModalCreateContact extends React.Component {
   }
 
   handleSubmit() {
-    const { lastName, firstName } = this.state;
+    const {
+      company,
+      lastName,
+      firstName,
+      phone1Type,
+      phone1Number
+    } = this.state;
     const { getContacts } = this.props;
-    ContactServices.postContact({ lastName, firstName }).then(
-      this.handleClose(),
-      getContacts()
-    );
+    const phones = [{ type: phone1Type, number: phone1Number }];
+    ContactServices.postContact({
+      lastName,
+      firstName,
+      phones,
+      company
+    }).then(this.handleClose(), getContacts());
   }
 
   render() {
     const actions = [
-      <FlatButton label="Cancel" primary onClick={() => this.handleClose()} />,
-      <FlatButton label="Submit" primary onClick={() => this.handleSubmit()} />
+      <RaisedButton
+        label="Annuler"
+        secondary
+        onClick={() => this.handleClose()}
+        style={{ margin: 5 }}
+      />,
+      <RaisedButton
+        tton
+        label="Ajouter"
+        primary
+        onClick={() => this.handleSubmit()}
+        style={{ margin: 5 }}
+      />
     ];
 
-    const { lastName, firstName } = this.state;
+    const {
+      company,
+      lastName,
+      firstName,
+      phone1Type,
+      phone1Number
+    } = this.state;
 
     return (
       <div>
         <Dialog
-          title="Ajouter un contact"
           actions={actions}
           modal={false}
-          open={this.state.open}
           onRequestClose={() => this.handleClose()}
+          open={this.state.open}
+          title="Ajouter un contact"
         >
           <TextField
-            placeholder="Nom"
+            floatingLabelText="Nom"
             name="lastName"
+            onChange={this.handleInputChange}
             type="text"
             value={lastName}
-            onChange={this.handleInputChange}
           />
           <br />
           <br />
           <TextField
-            placeholder="Prenom"
+            floatingLabelText="Prenom"
             name="firstName"
+            onChange={this.handleInputChange}
             type="text"
             value={firstName}
+          />
+          <br />
+          <br />
+          <TextField
+            floatingLabelText="Entreprise"
+            name="company"
             onChange={this.handleInputChange}
+            type="text"
+            value={company}
+          />
+          <br />
+          <br />
+          <TextField
+            floatingLabelText="Type"
+            name="phone1Type"
+            onChange={this.handleInputChange}
+            type="text"
+            value={phone1Type}
+            style={{ width: "90px" }}
+          />
+          <TextField
+            floatingLabelText="Téléphone"
+            name="phone1Number"
+            onChange={this.handleInputChange}
+            type="text"
+            value={phone1Number}
+            style={{ paddingLeft: "10px", width: "150px" }}
           />
         </Dialog>
       </div>

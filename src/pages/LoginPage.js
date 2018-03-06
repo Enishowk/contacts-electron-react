@@ -69,19 +69,19 @@ export default class LoginPage extends React.Component {
             }}
           >
             <TextField
-              placeholder="Username"
+              floatingLabelText="Username"
               name="username"
+              onChange={this.handleInputChange}
               type="text"
               value={username}
-              onChange={this.handleInputChange}
             />
             <br />
             <TextField
-              placeholder="Password"
+              floatingLabelText="Password"
               name="password"
+              onChange={this.handleInputChange}
               type="password"
               value={password}
-              onChange={this.handleInputChange}
             />
             <br />
             <br />
