@@ -38,7 +38,11 @@ export default class NavBar extends React.Component {
       <Toolbar>
         <ToolbarGroup>
           <Link to="/">
-            <RaisedButton labelPosition="after" label="Back" icon={<Back />} />
+            <RaisedButton
+              labelPosition="after"
+              label="Revenir"
+              icon={<Back />}
+            />
           </Link>
         </ToolbarGroup>
         <ToolbarGroup>
