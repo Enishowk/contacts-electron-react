@@ -1,7 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Dialog from "material-ui/Dialog";
-import RaisedButton from "material-ui/RaisedButton";
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogTitle
+} from "material-ui/Dialog";
+import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
 import ContactServices from "../services/ContactsServices";
 
@@ -64,22 +68,6 @@ export default class ModalCreateContact extends React.Component {
   }
 
   render() {
-    const actions = [
-      <RaisedButton
-        label="Annuler"
-        secondary
-        onClick={() => this.handleClose()}
-        style={{ margin: 5 }}
-      />,
-      <RaisedButton
-        tton
-        label="Ajouter"
-        primary
-        onClick={() => this.handleSubmit()}
-        style={{ margin: 5 }}
-      />
-    ];
-
     const {
       company,
       lastName,
@@ -91,55 +79,75 @@ export default class ModalCreateContact extends React.Component {
     return (
       <div>
         <Dialog
-          actions={actions}
-          modal={false}
-          onRequestClose={() => this.handleClose()}
+          onClose={() => this.handleClose()}
           open={this.state.open}
-          title="Ajouter un contact"
+          aria-labelledby="form-dialog-title"
         >
-          <TextField
-            floatingLabelText="Nom"
-            name="lastName"
-            onChange={this.handleInputChange}
-            type="text"
-            value={lastName}
-          />
-          <br />
-          <br />
-          <TextField
-            floatingLabelText="Prenom"
-            name="firstName"
-            onChange={this.handleInputChange}
-            type="text"
-            value={firstName}
-          />
-          <br />
-          <br />
-          <TextField
-            floatingLabelText="Entreprise"
-            name="company"
-            onChange={this.handleInputChange}
-            type="text"
-            value={company}
-          />
-          <br />
-          <br />
-          <TextField
-            floatingLabelText="Type"
-            name="phone1Type"
-            onChange={this.handleInputChange}
-            type="text"
-            value={phone1Type}
-            style={{ width: "90px" }}
-          />
-          <TextField
-            floatingLabelText="Téléphone"
-            name="phone1Number"
-            onChange={this.handleInputChange}
-            type="text"
-            value={phone1Number}
-            style={{ paddingLeft: "10px", width: "150px" }}
-          />
+          <DialogTitle id="form-dialog-title" style={{ width: "500px" }}>
+            Ajouter un contact
+          </DialogTitle>
+          <DialogContent>
+            <TextField
+              label="Nom"
+              name="lastName"
+              onChange={this.handleInputChange}
+              type="text"
+              value={lastName}
+              margin="dense"
+              fullWidth
+            />
+            <TextField
+              label="Prenom"
+              name="firstName"
+              onChange={this.handleInputChange}
+              type="text"
+              value={firstName}
+              fullWidth
+            />
+            <TextField
+              label="Entreprise"
+              name="company"
+              onChange={this.handleInputChange}
+              type="text"
+              value={company}
+              fullWidth
+            />
+            <TextField
+              label="Type"
+              name="phone1Type"
+              onChange={this.handleInputChange}
+              type="text"
+              value={phone1Type}
+              style={{ width: "90px" }}
+            />
+            <TextField
+              label="Téléphone"
+              name="phone1Number"
+              onChange={this.handleInputChange}
+              type="text"
+              value={phone1Number}
+              style={{ width: "462px" }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant="raised"
+              color="secondary"
+              onClick={() => this.handleClose()}
+              style={{ margin: 5 }}
+            >
+              Annuler
+            </Button>
+            ,
+            <Button
+              variant="raised"
+              color="primary"
+              onClick={() => this.handleSubmit()}
+              style={{ margin: 5 }}
+            >
+              Ajouter
+            </Button>
+          </DialogActions>
         </Dialog>
       </div>
     );
