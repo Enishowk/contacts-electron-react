@@ -1,21 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import RaisedButton from "material-ui/RaisedButton";
-import { Toolbar, ToolbarGroup } from "material-ui/Toolbar";
+import AppBar from "material-ui/AppBar";
+import Toolbar from "material-ui/Toolbar";
+import Typography from "material-ui/Typography";
+import IconButton from "material-ui/IconButton";
+import MenuIcon from "material-ui-icons/Menu";
 import Avatar from "material-ui/Avatar";
-import Back from "material-ui/svg-icons/hardware/keyboard-arrow-left";
-import ContentAdd from "material-ui/svg-icons/content/add";
+import Menu, { MenuItem } from "material-ui/Menu";
 import MeServices from "../services/MeServices";
-import ModalCreateContact from "../components/ModalCreateContact";
 
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      openModal: false
+      anchorEl: null
     };
-    this.closeModal = this.closeModal.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleMenu = this.handleMenu.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentWillMount() {
@@ -24,45 +26,79 @@ export default class NavBar extends React.Component {
     });
   }
 
-  showModal() {
-    this.setState({ openModal: true });
+  handleChange(event, checked) {
+    this.setState({ auth: checked });
   }
-  closeModal() {
-    this.setState({ openModal: false });
+
+  handleMenu(event) {
+    this.setState({ anchorEl: event.currentTarget });
+  }
+
+  handleClose() {
+    this.setState({ anchorEl: null });
   }
 
   render() {
-    const { openModal, avatar } = this.state;
+    const { anchorEl, avatar } = this.state;
+    const open = Boolean(anchorEl);
+
+    const styles = {
+      root: {
+        flexGrow: 1
+      },
+      flex: {
+        flex: 1
+      },
+      menuButton: {
+        marginLeft: -12,
+        marginRight: 20,
+        color: "#FFFFFF"
+      }
+    };
 
     return (
-      <Toolbar>
-        <ToolbarGroup>
-          <Link to="/">
-            <RaisedButton labelPosition="after" label="Back" icon={<Back />} />
-          </Link>
-        </ToolbarGroup>
-        <ToolbarGroup>
-          <RaisedButton
-            labelPosition="after"
-            label="Ajouter un contact"
-            primary
-            icon={<ContentAdd />}
-            onClick={() => this.showModal()}
-          />
-          <ModalCreateContact
-            openModal={openModal}
-            closeModal={this.closeModal}
-            getContacts={this.props.getContacts}
-          />
-        </ToolbarGroup>
-        <ToolbarGroup>
-          <Avatar
-            src={
-              avatar && `http://127.0.0.1:8000/public/uploads/avatars/${avatar}`
-            }
-          />
-        </ToolbarGroup>
-      </Toolbar>
+      <div style={styles.root}>
+        <AppBar position="static" color="primary">
+          <Toolbar>
+            <IconButton style={styles.menuButton} aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="title" color="inherit" style={styles.flex}>
+              Vos contacts
+            </Typography>
+            <IconButton
+              aria-owns={open ? "menu-appbar" : null}
+              aria-haspopup="true"
+              onClick={this.handleMenu}
+              color="inherit"
+            >
+              <Avatar
+                src={
+                  avatar &&
+                    `http://127.0.0.1:8000/public/uploads/avatars/${avatar}`
+                }
+              />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right"
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right"
+              }}
+              open={open}
+              onClose={this.handleClose}
+            >
+              <MenuItem onClick={this.handleClose}>Mon compte</MenuItem>
+              <MenuItem onClick={this.handleClose}>Déconnexion</MenuItem>
+            </Menu>
+          </Toolbar>
+        </AppBar>
+      </div>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import RaisedButton from "material-ui/RaisedButton";
+import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
 import { Link } from "react-router-dom";
 import ContactsServices from "../services/ContactsServices";
@@ -69,23 +69,25 @@ export default class LoginPage extends React.Component {
             }}
           >
             <TextField
-              placeholder="Username"
+              label="Username"
               name="username"
+              onChange={this.handleInputChange}
               type="text"
               value={username}
-              onChange={this.handleInputChange}
             />
             <br />
             <TextField
-              placeholder="Password"
+              label="Password"
               name="password"
+              onChange={this.handleInputChange}
               type="password"
               value={password}
-              onChange={this.handleInputChange}
             />
             <br />
             <br />
-            <RaisedButton type="submit" label="Connexion" primary />
+            <Button type="submit" variant="raised" color="primary">
+              Connexion
+            </Button>
           </form>
         </div>
         <div

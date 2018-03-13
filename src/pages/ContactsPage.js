@@ -1,45 +1,87 @@
 import React from "react";
-import ContactsService from "../services/ContactsServices";
-import NavBar from "../components/NavBar";
+import AddIcon from "material-ui-icons/Add";
+import Button from "material-ui/Button";
+import PropTypes from "prop-types";
+import { withStyles } from "material-ui/styles";
 import ContactsList from "../components/ContactsList";
+import ContactsService from "../services/ContactsServices";
+import ModalCreateContact from "../components/ModalCreateContact";
 import ModalDeleteContact from "../components/ModalDeleteContact";
+import NavBar from "../components/NavBar";
 
-export default class ContactsPage extends React.Component {
+const styles = theme => ({
+  fab: {
+    position: "absolute",
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 2
+  }
+});
+
+class ContactsPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      openModal: false,
+      openDeleteModal: false,
+      openCreateModal: false,
       contacts: []
     };
-    this.showModal = this.showModal.bind(this);
+    this.showDeleteModal = this.showDeleteModal.bind(this);
+    this.showCreateModal = this.showCreateModal.bind(this);
     this.getContacts = this.getContacts.bind(this);
-    // this.reload = this.reload.bind(this);
     this.getContacts();
   }
 
   getContacts() {
     ContactsService.getContacts().then(response => {
-      this.setState({ contacts: response.data, openModal: false });
+      this.setState({
+        contacts: response.data,
+        openDeleteModal: false,
+        openCreateModal: false
+      });
     });
   }
 
-  showModal(contact) {
-    this.setState({ openModal: true, contact });
+  showDeleteModal(contact) {
+    this.setState({ openDeleteModal: true, contact });
+  }
+
+  showCreateModal() {
+    this.setState({ openCreateModal: true });
   }
 
   render() {
-    const { contacts, openModal, contact } = this.state;
+    const { contacts, openDeleteModal, openCreateModal, contact } = this.state;
+    const { classes } = this.props;
+
     return (
       <div>
         <NavBar getContacts={this.getContacts} />
         <ModalDeleteContact
-          openModal={openModal}
+          openModal={openDeleteModal}
           contact={contact}
           getContacts={this.getContacts}
         />
-        <ContactsList contacts={contacts} showModal={this.showModal} />
+        <ModalCreateContact
+          openModal={openCreateModal}
+          getContacts={this.getContacts}
+        />
+        <ContactsList contacts={contacts} showModal={this.showDeleteModal} />
+        <Button
+          variant="fab"
+          className={classes.fab}
+          color="primary"
+          onClick={this.showCreateModal}
+        >
+          <AddIcon />
+        </Button>
       </div>
     );
   }
 }
+
+ContactsPage.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired
+};
+
+export default withStyles(styles, { withTheme: true })(ContactsPage);

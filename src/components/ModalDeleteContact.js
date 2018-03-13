@@ -1,7 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Dialog from "material-ui/Dialog";
-import FlatButton from "material-ui/FlatButton";
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from "material-ui/Dialog";
+import Button from "material-ui/Button";
 import ContactsServices from "../services/ContactsServices";
 
 export default class ModalDeleteContact extends React.Component {
@@ -29,34 +34,44 @@ export default class ModalDeleteContact extends React.Component {
   }
 
   render() {
-    const actions = [
-      <FlatButton label="Annuler" primary onClick={() => this.handleClose()} />,
-      <FlatButton
-        label="Supprimer"
-        primary
-        onClick={() => this.handleSubmit()}
-      />
-    ];
     const { contact } = this.props;
 
     return (
       <div>
         <Dialog
           title="Supprimer un contact"
-          actions={actions}
-          modal={false}
           open={this.state.open}
-          onRequestClose={() => this.handleClose()}
+          onClose={() => this.handleClose()}
         >
-          <div>
-            Voulez-vous vraiment supprimer
-            {" "}
-            {contact.firstName}
-            {" "}
-            {contact.lastName}
-            {" "}
-            ?
-          </div>
+          <DialogTitle>Supprimer un contact</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Voulez-vous vraiment supprimer
+              {" "}
+              {contact.firstName}
+              {" "}
+              {contact.lastName}
+              {" "}
+              ?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              color="secondary"
+              variant="raised"
+              onClick={() => this.handleClose()}
+            >
+              Annuler
+            </Button>
+            <Button
+              color="primary"
+              variant="raised"
+              autoFocus
+              onClick={() => this.handleSubmit()}
+            >
+              Supprimer
+            </Button>
+          </DialogActions>
         </Dialog>
       </div>
     );

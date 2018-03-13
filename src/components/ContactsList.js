@@ -1,49 +1,61 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  Table,
+import Table, {
   TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn
+  TableCell,
+  TableHead,
+  TableRow
 } from "material-ui/Table";
+import Paper from "material-ui/Paper";
 import IconButton from "material-ui/IconButton";
-import DeleteIcon from "material-ui/svg-icons/action/delete";
+import DeleteIcon from "material-ui-icons/Delete";
+import Chip from "material-ui/Chip";
 
 const ContactsList = ({ contacts, showModal }) => (
-  <Table selectable={false} multiSelectable={false}>
-    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-      <TableRow>
-        <TableHeaderColumn>ID</TableHeaderColumn>
-        <TableHeaderColumn>Nom</TableHeaderColumn>
-        <TableHeaderColumn>Entreprise</TableHeaderColumn>
-        <TableHeaderColumn>Téléphone</TableHeaderColumn>
-        <TableHeaderColumn>Actions</TableHeaderColumn>
-      </TableRow>
-    </TableHeader>
-    <TableBody displayRowCheckbox={false} showRowHover={false} stripedRows>
-      {contacts.map(contact => (
-        <TableRow key={contact.id}>
-          <TableRowColumn>{contact.id}</TableRowColumn>
-          <TableRowColumn>
-            {contact.firstName} {contact.lastName}
-          </TableRowColumn>
-          <TableRowColumn>{contact.company}</TableRowColumn>
-          {
-            <TableRowColumn>
-              {contact.phones[0] ? contact.phones[0].number : null}
-            </TableRowColumn>
-          }
-          <TableRowColumn>
-            <IconButton>
-              <DeleteIcon onClick={() => showModal(contact)} />
-            </IconButton>
-          </TableRowColumn>
+  <Paper
+    style={{
+      width: "100%"
+    }}
+  >
+    <Table
+      style={{
+        minWidth: 200
+      }}
+    >
+      <TableHead>
+        <TableRow>
+          <TableCell>ID</TableCell>
+          <TableCell>Nom</TableCell>
+          <TableCell>Entreprise</TableCell>
+          <TableCell>Téléphone</TableCell>
+          <TableCell>Actions</TableCell>
         </TableRow>
-      ))}
-    </TableBody>
-  </Table>
+      </TableHead>
+      <TableBody>
+        {contacts.map(contact => (
+          <TableRow key={contact.id}>
+            <TableCell>{contact.id}</TableCell>
+            <TableCell>
+              {contact.firstName} {contact.lastName}
+            </TableCell>
+            <TableCell>{contact.company}</TableCell>
+            {
+              <TableCell>
+                {contact.phones[0] &&
+                  contact.phones[0].number &&
+                  <Chip label={contact.phones[0].number} />}
+              </TableCell>
+            }
+            <TableCell>
+              <IconButton>
+                <DeleteIcon onClick={() => showModal(contact)} />
+              </IconButton>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  </Paper>
 );
 
 export default ContactsList;
