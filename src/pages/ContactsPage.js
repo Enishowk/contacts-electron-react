@@ -33,13 +33,23 @@ class ContactsPage extends React.Component {
   }
 
   getContacts() {
-    ContactsService.getContacts().then(response => {
-      this.setState({
-        contacts: response.data,
-        openDeleteModal: false,
-        openCreateModal: false
+    ContactsService.getContacts()
+      .then(response => {
+        this.setState({
+          contacts: response.data,
+          openDeleteModal: false,
+          openCreateModal: false
+        });
+      })
+      .catch(error => {
+        if (error.response.data.code === 401) {
+          const location = {
+            pathname: `/`,
+            state: {}
+          };
+          this.props.history.push(location);
+        }
       });
-    });
   }
 
   showDeleteModal(contact) {
@@ -81,7 +91,20 @@ class ContactsPage extends React.Component {
 }
 
 ContactsPage.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  history: PropTypes.shape({
+    length: PropTypes.number,
+    action: PropTypes.string,
+    block: PropTypes.func,
+    createHref: PropTypes.func,
+    go: PropTypes.func,
+    goBack: PropTypes.func,
+    goForward: PropTypes.func,
+    listen: PropTypes.func,
+    location: PropTypes.object,
+    push: PropTypes.func,
+    replace: PropTypes.func
+  }).isRequired
 };
 
 export default withStyles(styles, { withTheme: true })(ContactsPage);
