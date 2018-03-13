@@ -9,6 +9,7 @@ import Table, {
 import Paper from "material-ui/Paper";
 import IconButton from "material-ui/IconButton";
 import DeleteIcon from "material-ui-icons/Delete";
+import Chip from "material-ui/Chip";
 
 const ContactsList = ({ contacts, showModal }) => (
   <Paper
@@ -40,7 +41,9 @@ const ContactsList = ({ contacts, showModal }) => (
             <TableCell>{contact.company}</TableCell>
             {
               <TableCell>
-                {contact.phones[0] ? contact.phones[0].number : null}
+                {contact.phones[0] &&
+                  contact.phones[0].number &&
+                  <Chip label={contact.phones[0].number} />}
               </TableCell>
             }
             <TableCell>
