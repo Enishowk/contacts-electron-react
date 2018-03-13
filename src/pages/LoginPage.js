@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
-import { Link } from "react-router-dom";
 import ContactsServices from "../services/ContactsServices";
 
 export default class LoginPage extends React.Component {
@@ -89,19 +88,6 @@ export default class LoginPage extends React.Component {
               Connexion
             </Button>
           </form>
-        </div>
-        <div
-          style={{
-            height: 30,
-            width: "100%",
-            position: "fixed",
-            textAlign: "center",
-            bottom: 0
-          }}
-        >
-          <Link to="/contacts">
-            <span>Mes contacts</span>
-          </Link>
         </div>
       </div>
     );

@@ -75,11 +75,11 @@ class ContactsPage extends React.Component {
       openCreateModal,
       openDeleteModal
     } = this.state;
-    const { classes } = this.props;
+    const { classes, history } = this.props;
 
     return (
       <div>
-        <NavBar getContacts={this.getContacts} />
+        <NavBar getContacts={this.getContacts} history={history} />
         <ModalDeleteContact
           openModal={openDeleteModal}
           closeModal={this.closeDeleteModal}

@@ -15,9 +15,10 @@ export default class NavBar extends React.Component {
     this.state = {
       anchorEl: null
     };
+    this.disconnect = this.disconnect.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleMenu = this.handleMenu.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleMenu = this.handleMenu.bind(this);
   }
 
   componentWillMount() {
@@ -36,6 +37,16 @@ export default class NavBar extends React.Component {
 
   handleClose() {
     this.setState({ anchorEl: null });
+  }
+
+  disconnect() {
+    localStorage.clear();
+    const location = {
+      pathname: `/`,
+      state: {}
+    };
+
+    this.props.history.push(location);
   }
 
   render() {
@@ -94,7 +105,7 @@ export default class NavBar extends React.Component {
               onClose={this.handleClose}
             >
               <MenuItem onClick={this.handleClose}>Mon compte</MenuItem>
-              <MenuItem onClick={this.handleClose}>Déconnexion</MenuItem>
+              <MenuItem onClick={this.disconnect}>Déconnexion</MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>
@@ -104,5 +115,17 @@ export default class NavBar extends React.Component {
 }
 
 NavBar.propTypes = {
-  getContacts: PropTypes.func.isRequired
+  history: PropTypes.shape({
+    length: PropTypes.number,
+    action: PropTypes.string,
+    block: PropTypes.func,
+    createHref: PropTypes.func,
+    go: PropTypes.func,
+    goBack: PropTypes.func,
+    goForward: PropTypes.func,
+    listen: PropTypes.func,
+    location: PropTypes.object,
+    push: PropTypes.func,
+    replace: PropTypes.func
+  }).isRequired
 };
