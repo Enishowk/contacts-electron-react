@@ -6,6 +6,7 @@ import TextField from "material-ui/TextField";
 import Snackbar from "material-ui/Snackbar";
 import IconButton from "material-ui/IconButton";
 import CloseIcon from "material-ui-icons/Close";
+import { LinearProgress } from "material-ui/Progress";
 import ContactsServices from "../services/ContactsServices";
 
 const styles = theme => ({
@@ -21,7 +22,8 @@ class LoginPage extends React.Component {
     this.state = {
       username: "",
       password: "",
-      error: false
+      error: false,
+      loading: false
     };
 
     this.handleClose = this.handleClose.bind(this);
@@ -42,9 +44,11 @@ class LoginPage extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.setState({ loading: true });
 
     ContactsServices.login(this.state.username, this.state.password)
       .then(response => {
+        this.setState({ loading: false });
         const token = response.data.token;
         localStorage.setItem("token", token);
 
@@ -55,9 +59,8 @@ class LoginPage extends React.Component {
 
         this.props.history.push(location);
       })
-      .catch(error => {
-        console.error(error);
-        this.setState({ error: true });
+      .catch(() => {
+        this.setState({ error: true, loading: false });
       });
   }
 
@@ -70,7 +73,7 @@ class LoginPage extends React.Component {
   }
 
   render() {
-    const { username, password, error } = this.state;
+    const { username, password, error, loading } = this.state;
     const { classes } = this.props;
 
     return (
@@ -110,11 +113,17 @@ class LoginPage extends React.Component {
             />
             <br />
             <br />
-            <Button type="submit" variant="raised" color="primary">
+            <Button
+              type="submit"
+              variant="raised"
+              color="primary"
+              disabled={loading}
+            >
               Connexion
             </Button>
           </form>
         </div>
+        {loading && <LinearProgress />}
         <Snackbar
           anchorOrigin={{
             vertical: "bottom",
