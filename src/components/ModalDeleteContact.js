@@ -22,7 +22,9 @@ export default class ModalDeleteContact extends React.Component {
   }
 
   handleClose() {
+    const { closeModal } = this.props;
     this.setState({ open: false });
+    closeModal();
   }
 
   handleSubmit() {
@@ -79,7 +81,7 @@ export default class ModalDeleteContact extends React.Component {
 }
 
 ModalDeleteContact.propTypes = {
-  openModal: PropTypes.bool, // eslint-disable-line
+  closeModal: PropTypes.func.isRequired,
   contact: PropTypes.shape({
     company: PropTypes.string,
     firstName: PropTypes.string,
@@ -89,7 +91,8 @@ ModalDeleteContact.propTypes = {
     phones: PropTypes.array,
     website: PropTypes.string
   }),
-  getContacts: PropTypes.func.isRequired
+  getContacts: PropTypes.func.isRequired,
+  openModal: PropTypes.bool // eslint-disable-line
 };
 
 ModalDeleteContact.defaultProps = {

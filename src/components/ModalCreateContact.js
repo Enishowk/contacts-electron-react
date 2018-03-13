@@ -46,7 +46,9 @@ export default class ModalCreateContact extends React.Component {
   }
 
   handleClose() {
+    const { closeModal } = this.props;
     this.setState({ open: false });
+    closeModal();
   }
 
   handleSubmit() {
@@ -155,6 +157,7 @@ export default class ModalCreateContact extends React.Component {
 }
 
 ModalCreateContact.propTypes = {
+  closeModal: PropTypes.func.isRequired,
   getContacts: PropTypes.func.isRequired,
   openModal: PropTypes.bool // eslint-disable-line
 };

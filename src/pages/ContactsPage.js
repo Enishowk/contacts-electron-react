@@ -22,13 +22,15 @@ class ContactsPage extends React.Component {
     super(props);
 
     this.state = {
-      openDeleteModal: false,
+      contactsList: [],
       openCreateModal: false,
-      contacts: []
+      openDeleteModal: false
     };
-    this.showDeleteModal = this.showDeleteModal.bind(this);
-    this.showCreateModal = this.showCreateModal.bind(this);
+    this.closeCreateModal = this.closeCreateModal.bind(this);
+    this.closeDeleteModal = this.closeDeleteModal.bind(this);
     this.getContacts = this.getContacts.bind(this);
+    this.showCreateModal = this.showCreateModal.bind(this);
+    this.showDeleteModal = this.showDeleteModal.bind(this);
     this.getContacts();
   }
 
@@ -36,7 +38,7 @@ class ContactsPage extends React.Component {
     ContactsService.getContacts()
       .then(response => {
         this.setState({
-          contacts: response.data,
+          contactsList: response.data,
           openDeleteModal: false,
           openCreateModal: false
         });
@@ -55,13 +57,24 @@ class ContactsPage extends React.Component {
   showDeleteModal(contact) {
     this.setState({ openDeleteModal: true, contact });
   }
+  closeDeleteModal() {
+    this.setState({ openDeleteModal: false });
+  }
 
   showCreateModal() {
     this.setState({ openCreateModal: true });
   }
+  closeCreateModal() {
+    this.setState({ openCreateModal: false });
+  }
 
   render() {
-    const { contacts, openDeleteModal, openCreateModal, contact } = this.state;
+    const {
+      contact,
+      contactsList,
+      openCreateModal,
+      openDeleteModal
+    } = this.state;
     const { classes } = this.props;
 
     return (
@@ -69,14 +82,19 @@ class ContactsPage extends React.Component {
         <NavBar getContacts={this.getContacts} />
         <ModalDeleteContact
           openModal={openDeleteModal}
+          closeModal={this.closeDeleteModal}
           contact={contact}
           getContacts={this.getContacts}
         />
         <ModalCreateContact
           openModal={openCreateModal}
+          closeModal={this.closeCreateModal}
           getContacts={this.getContacts}
         />
-        <ContactsList contacts={contacts} showModal={this.showDeleteModal} />
+        <ContactsList
+          contacts={contactsList}
+          showModal={this.showDeleteModal}
+        />
         <Button
           variant="fab"
           className={classes.fab}
