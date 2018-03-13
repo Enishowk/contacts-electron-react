@@ -9,17 +9,19 @@ import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
 import ContactServices from "../services/ContactsServices";
 
+const initState = {
+  open: false,
+  company: "",
+  firstName: "",
+  lastName: "",
+  phone1Number: "",
+  phone1Type: ""
+};
+
 export default class ModalCreateContact extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      open: false,
-      entreprise: "",
-      firstName: "",
-      lastName: "",
-      phone1Number: "",
-      phone1Type: ""
-    };
+    this.state = initState;
 
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -44,9 +46,7 @@ export default class ModalCreateContact extends React.Component {
   }
 
   handleClose() {
-    const { closeModal } = this.props;
     this.setState({ open: false });
-    closeModal();
   }
 
   handleSubmit() {
@@ -64,7 +64,7 @@ export default class ModalCreateContact extends React.Component {
       firstName,
       phones,
       company
-    }).then(this.handleClose(), getContacts());
+    }).then(this.setState(initState), getContacts());
   }
 
   render() {
@@ -155,7 +155,6 @@ export default class ModalCreateContact extends React.Component {
 }
 
 ModalCreateContact.propTypes = {
-  closeModal: PropTypes.func.isRequired,
   getContacts: PropTypes.func.isRequired,
   openModal: PropTypes.bool // eslint-disable-line
 };

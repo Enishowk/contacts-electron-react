@@ -1,22 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import AppBar from "material-ui/AppBar";
 import Toolbar from "material-ui/Toolbar";
-import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
-import ArrowBack from "material-ui-icons/KeyboardArrowLeft";
+import MenuIcon from "material-ui-icons/Menu";
 import Avatar from "material-ui/Avatar";
 import Menu, { MenuItem } from "material-ui/Menu";
 import MeServices from "../services/MeServices";
-import ModalCreateContact from "../components/ModalCreateContact";
 
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      openModal: false,
       anchorEl: null
     };
     this.handleChange = this.handleChange.bind(this);
@@ -42,15 +38,8 @@ export default class NavBar extends React.Component {
     this.setState({ anchorEl: null });
   }
 
-  showModal() {
-    this.setState({ openModal: true });
-  }
-  closeModal() {
-    this.setState({ openModal: false });
-  }
-
   render() {
-    const { anchorEl, avatar, openModal } = this.state;
+    const { anchorEl, avatar } = this.state;
     const open = Boolean(anchorEl);
 
     const styles = {
@@ -71,26 +60,12 @@ export default class NavBar extends React.Component {
       <div style={styles.root}>
         <AppBar position="static" color="primary">
           <Toolbar>
-            <Link to="/">
-              <IconButton style={styles.menuButton} aria-label="Menu">
-                <ArrowBack />
-              </IconButton>
-            </Link>
+            <IconButton style={styles.menuButton} aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
             <Typography variant="title" color="inherit" style={styles.flex}>
               Vos contacts
             </Typography>
-            <Button
-              variant="raised"
-              color="secondary"
-              onClick={() => this.showModal()}
-            >
-              Ajouter un contact
-            </Button>
-            <ModalCreateContact
-              openModal={openModal}
-              closeModal={this.closeModal}
-              getContacts={this.props.getContacts}
-            />
             <IconButton
               aria-owns={open ? "menu-appbar" : null}
               aria-haspopup="true"
